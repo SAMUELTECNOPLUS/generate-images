@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    const API_KEY = 'vk-GKafmwoo2XV4k03DFfQlRpWdD2z9S3hV0F03RQ9lBRgD2Fj';
-    const API_URL = 'https://api.vyro.ai/v2/image/generations';
+    const API_KEY = '6afb30baaemsh22f9f39290e04d2p12344ejsn321e8d760d33';
+    const API_URL = 'https://ai-text-to-image-generator-flux-free-api.p.rapidapi.com/aaaaaaaaaaaaaaaaaiimagegenerator/fluximagegenerate/generateimage.php';
     const imageResultElement = document.getElementById('imageResult');
     const imageContainer = document.getElementById('imageContainer');
     const imageLayer = document.querySelector('.image-container__layer');
@@ -37,22 +37,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setLoadingState(true);
 
-        const requestBody = {
-            prompt: promptValue,
-            style: styleValue
-        };
+        // Crear el body como x-www-form-urlencoded
+        const formData = new URLSearchParams();
+        formData.append('prompt', promptValue);
+        formData.append('style', styleValue);
         
         if (ratioValue && ratioValue !== '' && ratioValue !== 'none') {
-            requestBody.aspect_ratio = ratioValue;
+            formData.append('aspect_ratio', ratioValue);
         }
         
         const requestOptions = {
             method: 'POST',
             headers: {
-                "Authorization": `Bearer ${API_KEY}`,
-                "Content-Type": "application/json"
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'x-rapidapi-host': 'ai-text-to-image-generator-flux-free-api.p.rapidapi.com',
+                'x-rapidapi-key': API_KEY
             },
-            body: JSON.stringify(requestBody),
+            body: formData.toString(),
             redirect: 'follow'
         };
 
